@@ -95,7 +95,6 @@ void loop() {
         volume_water = volume_of_water(distancia, altura, raio);
         float percent = (volume_water /total_volume) * 100 ;
         Serial.println(percent);
-        delay(1000);
         
 
                                   if(percent <= limite1 ){        

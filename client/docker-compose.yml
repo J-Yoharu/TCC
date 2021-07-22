@@ -1,0 +1,17 @@
+version: "3"
+
+services:
+  node:
+    container_name: node-flood
+    image: uotz/vuejs
+    volumes:
+      - ".:/home/app"
+    ports:
+      - "8080:8080"
+    networks:
+      - flood-network
+
+networks:
+  flood-network:
+    external:
+      name: flood-network

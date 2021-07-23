@@ -115,7 +115,7 @@ export default {
       icons: {
         mdiAccessPoint,
         mdiSend,
-        mdiCloudDownload
+        mdiCloudDownload,
       },
       days: [
         "Segunda",
@@ -124,21 +124,21 @@ export default {
         "Quinta",
         "Sexta",
         "Sabado",
-        "Domingo"
+        "Domingo",
       ],
       carousel: 0,
       porcent: 70,
-      temperatura: 3
+      temperatura: 3,
     };
   },
   components: {
-    Gout: () => import("../components/Gout.vue")
+    Gout: () => import("../components/Gout.vue"),
   },
   computed: {
     cardColor() {
       return this.temperatura < 5 ? "blue" : "red";
-    }
-  }
+    },
+  },
 };
 </script>
 

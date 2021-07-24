@@ -2,9 +2,10 @@
   <v-app>
     <v-main>
       <Menu />
-      <v-container fluid>
+      <v-container fluid style="min-height: 80vh">
         <router-view></router-view>
       </v-container>
+      <Footer />
     </v-main>
   </v-app>
 </template>
@@ -13,7 +14,8 @@
 export default {
   name: "AuthLayout",
   components: {
-    Menu: () => import("../components/Menu.vue")
+    Menu: () => import("../components/Menu.vue"),
+    Footer: () => import("../components/Footer.vue")
   }
 };
 </script>

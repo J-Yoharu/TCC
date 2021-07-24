@@ -8,7 +8,12 @@
       >
         <div style="height: 20%" class="tw-w-full tw-bg-blue-800 wave">a</div>
       </v-col> -->
-      <v-col cols="12" md="4" class="d-flex justify-center align-center">
+      <v-col
+        cols="12"
+        md="4"
+        class="d-flex justify-center align-center"
+        style="min-height: 300px"
+      >
         <Gout />
       </v-col>
       <v-col cols="12" md="4" class="d-flex justify-center align-center">
@@ -35,77 +40,58 @@
       </v-col>
     </v-row>
     <v-row>
+      <v-col cols="12" md="3" class="d-flex justify-center align-center">
+        <v-card>
+          <v-list-item two-line>
+            <v-list-item-content>
+              <v-list-item-title class="text-h5">
+                {{ day.city }}
+              </v-list-item-title>
+              <v-list-item-subtitle>
+                {{ day.name }}, {{ getDate(day.timestamp) }} 12:30 PM,
+                {{ day.weather.description }}
+              </v-list-item-subtitle>
+            </v-list-item-content>
+          </v-list-item>
+
+          <v-card-text>
+            <v-row align="center">
+              <v-col class="text-h2" cols="6">
+                {{ Math.round(day.main.temp) }}&deg;C
+              </v-col>
+              <v-col cols="6">
+                <v-img
+                  :src="getIcon(day.weather.icon)"
+                  alt="Sunny image"
+                  width="92"
+                ></v-img>
+              </v-col>
+            </v-row>
+          </v-card-text>
+
+          <v-list-item>
+            <v-list-item-icon>
+              <v-icon v-text="icons.mdiSend"></v-icon>
+            </v-list-item-icon>
+            <v-list-item-subtitle>23 km/h</v-list-item-subtitle>
+          </v-list-item>
+
+          <v-list-item>
+            <v-list-item-icon>
+              <v-icon v-text="icons.mdiCloudDownload"></v-icon>
+            </v-list-item-icon>
+            <v-list-item-subtitle>48%</v-list-item-subtitle>
+          </v-list-item>
+        </v-card>
+      </v-col>
       <v-col>
-        <v-carousel
-          hide-delimiter-background
-          height="500"
-          v-model="carousel"
-          style="margin-bottom: 55px"
-        >
-          <v-carousel-item v-for="(day, index) in days" :key="index">
-            <v-sheet height="100%" color="green">
-              <v-row>
-                <v-col cols="3">
-                  <v-card class="mx-auto mt-5" max-width="400">
-                    <v-list-item two-line>
-                      <v-list-item-content>
-                        <v-list-item-title class="text-h5">
-                          São Paulo
-                        </v-list-item-title>
-                        <v-list-item-subtitle>
-                          {{ day.name }}, {{ getDate(day.timestamp) }} 12:30 PM,
-                          {{ day.weather.description }}
-                        </v-list-item-subtitle>
-                      </v-list-item-content>
-                    </v-list-item>
-
-                    <v-card-text>
-                      <v-row align="center">
-                        <v-col class="text-h2" cols="6">
-                          {{ convertToCelsius(day.main.temp) }}&deg;C
-                        </v-col>
-                        <v-col cols="6">
-                          <v-img
-                            :src="getIcon(day.weather.icon)"
-                            alt="Sunny image"
-                            width="92"
-                          ></v-img>
-                        </v-col>
-                      </v-row>
-                    </v-card-text>
-
-                    <v-list-item>
-                      <v-list-item-icon>
-                        <v-icon v-text="icons.mdiSend"></v-icon>
-                      </v-list-item-icon>
-                      <v-list-item-subtitle>23 km/h</v-list-item-subtitle>
-                    </v-list-item>
-
-                    <v-list-item>
-                      <v-list-item-icon>
-                        <v-icon v-text="icons.mdiCloudDownload"></v-icon>
-                      </v-list-item-icon>
-                      <v-list-item-subtitle>48%</v-list-item-subtitle>
-                    </v-list-item>
-                  </v-card>
-                </v-col>
-              </v-row>
-            </v-sheet>
-          </v-carousel-item>
-        </v-carousel>
+        <v-img
+          max-height="350"
+          contain
+          src="https://www.researchgate.net/profile/Javam-Machado/publication/221535975/figure/fig19/AS:340375819571209@1458163327712/Figura-56-Grafico-de-tempo-de-resposta.png"
+        ></v-img>
       </v-col>
     </v-row>
-    <v-footer padless absolute>
-      <v-col class="text-center pa-0" cols="12">
-        <v-btn color="black" text rounded class="my-2"> Home </v-btn>
-        <v-btn color="black" text rounded class="my-2"> Contato </v-btn>
-        <v-btn color="black" text rounded class="my-2"> Quem somos </v-btn>
-      </v-col>
-      <v-col class="text-center pa-0" cols="12">
-        {{ new Date().getFullYear() }} —
-        <strong>TCC - Ciências da computação</strong>
-      </v-col>
-    </v-footer>
   </div>
 </template>
 
@@ -120,58 +106,15 @@ export default {
         mdiSend,
         mdiCloudDownload
       },
-      days: [
-        {
-          name: "Domingo",
-          weather: {},
-          wind: {},
-          main: {},
-          timestamp: null
-        },
-        {
-          name: "Segunda",
-          weather: {},
-          wind: {},
-          main: {},
-          timestamp: null
-        },
-        {
-          name: "Terça",
-          weather: {},
-          wind: {},
-          main: {},
-          timestamp: null
-        },
-        {
-          name: "Quarta",
-          weather: {},
-          wind: {},
-          main: {},
-          timestamp: null
-        },
-        {
-          name: "Quinta",
-          weather: {},
-          wind: {},
-          main: {},
-          timestamp: null
-        },
-        {
-          name: "Sexta",
-          weather: {},
-          wind: {},
-          main: {},
-          timestamp: null
-        },
-        {
-          name: "Sabado",
-          weather: {},
-          wind: {},
-          main: {},
-          timestamp: null
-        }
-      ],
-      carousel: 0,
+      day: {
+        name: "Sabado",
+        weather: {},
+        wind: {},
+        main: {},
+        city: "Santo André",
+        timestamp: null
+      },
+      // carousel: 0,
       porcent: 70,
       temperatura: 3
     };
@@ -188,25 +131,21 @@ export default {
     }
   },
   mounted() {
-    this.carousel = this.today;
     getWeather().then(resp => {
+      console.log(resp);
       let data = {
         weather: resp.data.weather[0],
         main: resp.data.main,
         wind: resp.data.wind,
         timestamp: resp.data.dt
       };
-      Object.assign(this.days[this.today], data);
+      Object.assign(this.day, data);
     });
   },
   methods: {
     getIcon(name) {
       if (name == null) return;
       return `http://openweathermap.org/img/w/${name}.png`;
-    },
-    convertToCelsius(fahrenheit) {
-      if (fahrenheit == null) return 10;
-      return Math.floor(fahrenheit - 273.15);
     },
     getDate(timestamp) {
       if (timestamp == null) return;
@@ -225,6 +164,6 @@ export default {
     ),
     url("../../../assets/bg-rio.jpg");
   background-size: 100% 100%;
-  height: 400px;
+  min-height: 50vh;
 }
 </style>

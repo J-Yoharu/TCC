@@ -37,7 +37,6 @@
     <v-row>
       <v-col>
         <v-carousel
-          cycle
           hide-delimiter-background
           height="500"
           v-model="carousel"
@@ -54,17 +53,20 @@
                           São Paulo
                         </v-list-item-title>
                         <v-list-item-subtitle>
-                          {{ day }}, 12:30 PM, Mostly sunny
+                          {{ day.name }}, {{ getDate(day.timestamp) }} 12:30 PM,
+                          {{ day.weather.description }}
                         </v-list-item-subtitle>
                       </v-list-item-content>
                     </v-list-item>
 
                     <v-card-text>
                       <v-row align="center">
-                        <v-col class="text-h2" cols="6"> 23&deg;C </v-col>
+                        <v-col class="text-h2" cols="6">
+                          {{ convertToCelsius(day.main.temp) }}&deg;C
+                        </v-col>
                         <v-col cols="6">
                           <v-img
-                            src="https://cdn.vuetifyjs.com/images/cards/sun.png"
+                            :src="getIcon(day.weather.icon)"
                             alt="Sunny image"
                             width="92"
                           ></v-img>
@@ -109,36 +111,108 @@
 
 <script>
 import { mdiAccessPoint, mdiSend, mdiCloudDownload } from "@mdi/js";
+import { getWeather } from "../repositories/weatherRepository";
 export default {
   data() {
     return {
       icons: {
         mdiAccessPoint,
         mdiSend,
-        mdiCloudDownload,
+        mdiCloudDownload
       },
       days: [
-        "Segunda",
-        "Terça",
-        "Quarta",
-        "Quinta",
-        "Sexta",
-        "Sabado",
-        "Domingo",
+        {
+          name: "Domingo",
+          weather: {},
+          wind: {},
+          main: {},
+          timestamp: null
+        },
+        {
+          name: "Segunda",
+          weather: {},
+          wind: {},
+          main: {},
+          timestamp: null
+        },
+        {
+          name: "Terça",
+          weather: {},
+          wind: {},
+          main: {},
+          timestamp: null
+        },
+        {
+          name: "Quarta",
+          weather: {},
+          wind: {},
+          main: {},
+          timestamp: null
+        },
+        {
+          name: "Quinta",
+          weather: {},
+          wind: {},
+          main: {},
+          timestamp: null
+        },
+        {
+          name: "Sexta",
+          weather: {},
+          wind: {},
+          main: {},
+          timestamp: null
+        },
+        {
+          name: "Sabado",
+          weather: {},
+          wind: {},
+          main: {},
+          timestamp: null
+        }
       ],
       carousel: 0,
       porcent: 70,
-      temperatura: 3,
+      temperatura: 3
     };
   },
   components: {
-    Gout: () => import("../components/Gout.vue"),
+    Gout: () => import("../components/Gout.vue")
   },
   computed: {
     cardColor() {
       return this.temperatura < 5 ? "blue" : "red";
     },
+    today() {
+      return new Date().getDay();
+    }
   },
+  mounted() {
+    this.carousel = this.today;
+    getWeather().then(resp => {
+      let data = {
+        weather: resp.data.weather[0],
+        main: resp.data.main,
+        wind: resp.data.wind,
+        timestamp: resp.data.dt
+      };
+      Object.assign(this.days[this.today], data);
+    });
+  },
+  methods: {
+    getIcon(name) {
+      if (name == null) return;
+      return `http://openweathermap.org/img/w/${name}.png`;
+    },
+    convertToCelsius(fahrenheit) {
+      if (fahrenheit == null) return 10;
+      return Math.floor(fahrenheit - 273.15);
+    },
+    getDate(timestamp) {
+      if (timestamp == null) return;
+      return new Date(timestamp * 1000).toLocaleDateString("pt-BR");
+    }
+  }
 };
 </script>
 

@@ -48,7 +48,8 @@
                 {{ day.city }}
               </v-list-item-title>
               <v-list-item-subtitle>
-                {{ day.name }}, {{ getDate(day.timestamp) }} 12:30 PM,
+                {{ weekDays[new Date().getDay()] }},
+                {{ getDate(day.timestamp) }},
                 {{ day.weather.description }}
               </v-list-item-subtitle>
             </v-list-item-content>
@@ -104,23 +105,31 @@ export default {
       icons: {
         mdiAccessPoint,
         mdiSend,
-        mdiCloudDownload
+        mdiCloudDownload,
       },
+      weekDays: [
+        "Domingo",
+        "Segunda-feira",
+        "Terça-feira",
+        "Quarta-feira",
+        "Quinta-feira",
+        "Sexta-feira",
+        "Sábado",
+      ],
       day: {
-        name: "Sabado",
         weather: {},
         wind: {},
         main: {},
         city: "Santo André",
-        timestamp: null
+        timestamp: null,
       },
       // carousel: 0,
       porcent: 70,
-      temperatura: 3
+      temperatura: 3,
     };
   },
   components: {
-    Gout: () => import("../components/Gout.vue")
+    Gout: () => import("../components/Gout.vue"),
   },
   computed: {
     cardColor() {
@@ -128,22 +137,22 @@ export default {
     },
     today() {
       return new Date().getDay();
-    }
+    },
   },
   mounted() {
     let socket = new WebSocket(
       `ws://${process.env.VUE_APP_WEBSOCKET_HOST}:${process.env.VUE_APP_WEBSOCKET_PORT}`
     );
-    socket.onmessage = ev => {
+    socket.onmessage = (ev) => {
       this.porcent = ev.data;
     };
-    getWeather().then(resp => {
+    getWeather().then((resp) => {
       console.log(resp);
       let data = {
         weather: resp.data.weather[0],
         main: resp.data.main,
         wind: resp.data.wind,
-        timestamp: resp.data.dt
+        timestamp: resp.data.dt,
       };
       Object.assign(this.day, data);
     });
@@ -155,9 +164,11 @@ export default {
     },
     getDate(timestamp) {
       if (timestamp == null) return;
-      return new Date(timestamp * 1000).toLocaleDateString("pt-BR");
-    }
-  }
+      let date = new Date(timestamp * 1000);
+      return `${date.toLocaleDateString("pt-BR")} ${date.getHours()}:
+       ${date.getMinutes()}`;
+    },
+  },
 };
 </script>
 

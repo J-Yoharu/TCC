@@ -143,7 +143,6 @@ export default {
     }
   },
   created() {
-    console.log(this.socketAdress);
     const ws = new WebSocket(this.socketAdress);
     ws.onmessage = function(msg) {
       this.porcent = msg.data;

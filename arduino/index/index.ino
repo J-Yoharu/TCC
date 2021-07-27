@@ -4,8 +4,9 @@
   // CRIA O SERVIDOR
   #include <ESP8266WebServer.h> 
   #include <string>
+  #include <WebSocketsServer.h>
 
-
+  WebSocketsServer webSocket = WebSocketsServer(8081);
   //VALOR SERIAL P/ COMUNICAÇÃO
   #define valSerial 115200
   //DEFINIÇÃO DOS LEDS E SEUS PINOS 
@@ -32,7 +33,8 @@
   float volume_water = 0;
   
   float distancia = 0;
- 
+  char data[5];
+  
  //NOME E SENHA DA REDE WI-FI
   const char *ssid ="Medina_Net";
   const char *password ="120713Ss";
@@ -44,6 +46,7 @@
   
 /*==========CONFIGURAÇÃO DO SERVER*============*/
   Serial.begin(valSerial);
+  webSocket.begin();
   Serial.print("Rede Wi-Fi: ");
   Serial.println(ssid);
   WiFi.begin(ssid,password);
@@ -80,6 +83,7 @@ total_volume = volume_total(raio, altura);
 }
 
 void loop() {
+        webSocket.loop();
         // CONFIGURANDO O SENSOR DE DISTANCIA ULTRASSONICO
         digitalWrite(trigPin, LOW);
         delay(500);
@@ -94,6 +98,7 @@ void loop() {
 
         volume_water = volume_of_water(distancia, altura, raio);
         float percent = (volume_water /total_volume) * 100 ;
+        sendToSocket(percent);
         Serial.println(percent);
         
 
@@ -153,3 +158,8 @@ float volume_of_water(float distancia, float altura, float raio) {
   return volume_water;
   
   }
+
+void sendToSocket(float value){
+   char *valor = dtostrf(value,4,0,data);
+    webSocket.broadcastTXT(valor);
+}

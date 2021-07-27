@@ -115,7 +115,7 @@ export default {
       icons: {
         mdiAccessPoint,
         mdiSend,
-        mdiCloudDownload,
+        mdiCloudDownload
       },
       days: [
         "Segunda",
@@ -124,21 +124,33 @@ export default {
         "Quinta",
         "Sexta",
         "Sabado",
-        "Domingo",
+        "Domingo"
       ],
       carousel: 0,
       porcent: 70,
-      temperatura: 3,
+      temperatura: 3
     };
   },
   components: {
-    Gout: () => import("../components/Gout.vue"),
+    Gout: () => import("../components/Gout.vue")
   },
   computed: {
     cardColor() {
       return this.temperatura < 5 ? "blue" : "red";
     },
+    socketAdress() {
+      return `ws://${process.env.VUE_APP_WEBSOCKET_HOST}:${process.env.VUE_APP_WEBSOCKET_PORT}`;
+    }
   },
+  created() {
+    console.log(this.socketAdress);
+    const ws = new WebSocket(this.socketAdress);
+    console.log(ws);
+    ws.onmessage = function(msg) {
+      console.log(msg);
+      this.porcent = msg.data;
+    };
+  }
 };
 </script>
 

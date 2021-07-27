@@ -131,6 +131,12 @@ export default {
     }
   },
   mounted() {
+    let socket = new WebSocket(
+      `ws://${process.env.VUE_APP_WEBSOCKET_HOST}:${process.env.VUE_APP_WEBSOCKET_PORT}`
+    );
+    socket.onmessage = ev => {
+      this.porcent = ev.data;
+    };
     getWeather().then(resp => {
       console.log(resp);
       let data = {

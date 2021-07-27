@@ -14,7 +14,7 @@
         class="d-flex justify-center align-center"
         style="min-height: 300px"
       >
-        <Gout />
+        <Gout :porcent="porcent" />
       </v-col>
       <v-col cols="12" md="4" class="d-flex justify-center align-center">
         <v-card shaped>

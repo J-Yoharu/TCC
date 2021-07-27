@@ -2,14 +2,39 @@
   <div class="tw-relative">
     <div class="shape">
       <div class="frame">
-        <div class="wave" :style="'top:70'"></div>
+        <div class="wave" :style="`top:${100 - porcent - 20}%`"></div>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-export default {};
+export default {
+  props: {
+    porcent: {
+      required: true
+    }
+  },
+  data() {
+    return {
+      volume: -30
+    };
+  },
+  mounted() {
+    //   70 = 0 70
+    //   60 = 10 50
+    //   50 = 20  30
+    //   40 = 30 10
+    //   30 = 40 -10
+    //   20 = 50 -30
+    //   10 = 60 -50
+    //   0 = 70 -70
+    // -10 = 80 -90
+    // -20 = 90 -110
+    // -30 = 100 -130
+    console.log(this.porcent - 30);
+  }
+};
 </script>
 
 <style scoped>

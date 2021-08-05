@@ -44,7 +44,7 @@ export default {
   left: 50%;
   top: 200px;
   transform: translate(-50%);
-  z-index: 100;
+  z-index: 2;
 }
 .shape {
   width: 200px;

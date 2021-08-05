@@ -121,7 +121,8 @@ export default {
       },
       // carousel: 0,
       porcent: 70,
-      temperatura: 3
+      temperatura: 3,
+      socket: null
     };
   },
   components: {
@@ -137,12 +138,13 @@ export default {
     }
   },
   mounted() {
-    let socket = new WebSocket(
-      `ws://${process.env.VUE_APP_WEBSOCKET_HOST}:${process.env.VUE_APP_WEBSOCKET_PORT}`
+    let hasSocketEnv = Object.keys(process.env).some(env =>
+      env.includes("VUE_APP_WEBSOCKET")
     );
-    socket.onmessage = ev => {
-      this.porcent = ev.data;
-    };
+
+    if (!hasSocketEnv) console.error("tem o as variaveis de socket no .env!!!");
+    else this.tryConnectOnSocket();
+
     getWeather().then(resp => {
       console.log(resp);
       let data = {
@@ -164,6 +166,15 @@ export default {
       let date = new Date(timestamp * 1000);
       return `${date.toLocaleDateString("pt-BR")} ${date.getHours()}:
        ${date.getMinutes()}`;
+    },
+    tryConnectOnSocket() {
+      this.socket = new WebSocket(
+        `ws://${process.env.VUE_APP_WEBSOCKET_HOST}:${process.env.VUE_APP_WEBSOCKET_PORT}`
+      );
+
+      this.socket.onmessage = ev => {
+        this.porcent = ev.data;
+      };
     }
   }
 };

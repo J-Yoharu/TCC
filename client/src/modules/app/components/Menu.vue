@@ -1,69 +1,126 @@
 <template>
-  <v-app-bar elevation="2">
-    <v-img
-      contain
-      height="100%"
-      src="https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png"
-    ></v-img>
+  <div>
+    <v-toolbar class="elevation-0" v-if="!$vuetify.breakpoint.mdAndUp">
+      <v-row>
+        <v-col cols="12" class="d-flex">
+          <v-app-bar-nav-icon
+            class="hidden-md-and-up"
+            @click.stop="drawer = !drawer"
+          >
+          </v-app-bar-nav-icon>
+          <v-spacer></v-spacer>
+          <UserProfile type="app" />
+        </v-col>
+      </v-row>
+    </v-toolbar>
 
-    <v-tabs>
-      <v-tab
-        @click="$router.push({ name: tab.route })"
-        v-for="tab in tabs"
-        :key="tab.name"
-      >
-        <v-icon v-text="tab.icon" class="mr-5"></v-icon> {{ tab.name }}</v-tab
-      >
-    </v-tabs>
-    <v-row style="width: 50rem">
-      <v-col cols="12">
-        <v-text-field
-          hide-details
-          label="Pesquisar post"
-          outlined
-          rounded
-          single-line
-          dense
-          class="mr-5"
-        />
-      </v-col>
-    </v-row>
-    <div>
-      <UserProfile />
-    </div>
-  </v-app-bar>
+    <v-navigation-drawer
+      v-model="drawer"
+      app
+      :width="$vuetify.breakpoint.mdAndUp ? 300 : 250"
+      fixed
+      left
+      :permanent="$vuetify.breakpoint.mdAndUp"
+      color="#3F4254"
+      style="font-family: Poppins"
+    >
+      <template v-slot:prepend>
+        <v-list>
+          <v-list-item class="px-2 pb-2">
+            <v-list-item-title
+              style="color: white"
+              class="d-flex justify-center"
+            >
+              <div>
+                <v-img :src="images.floodBrand" class="ml-4" width="90">
+                </v-img>
+                <h4
+                  class="d-flex justify-center pt-2"
+                  style="font-family: Poppins; font-weight: bold"
+                >
+                  TAMANDUATEÍ HOJE
+                </h4>
+              </div>
+            </v-list-item-title>
+          </v-list-item>
+        </v-list>
+
+        <v-divider> </v-divider>
+
+        <v-list two-line nav dense>
+          <v-list-item
+            v-for="(item, index) in navItems"
+            :key="index"
+            link
+            exact
+            :to="{ name: item.route }"
+          >
+            <v-list-item-icon class="mr-2">
+              <v-icon large v-text="icons[item.icon]" style="color: white">
+              </v-icon>
+            </v-list-item-icon>
+
+            <v-list-item-content>
+              <v-list-item-title
+                class="text-subtitle-1"
+                style="color: white; font-family: Poppins !important"
+              >
+                {{ item.name }}
+              </v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+        </v-list>
+      </template>
+
+      <template v-slot:append>
+        <UserProfile v-if="$vuetify.breakpoint.mdAndUp" />
+      </template>
+    </v-navigation-drawer>
+  </div>
 </template>
 
 <script>
-import { mdiHome, mdiBookOpenPageVariant, mdiChat } from "@mdi/js";
+import floodBrand from "@/assets/flood-brand.png";
+import { mdiAccount, mdiHome, mdiBookOpenPageVariant, mdiChat } from "@mdi/js";
 export default {
   data() {
     return {
-      icons: {},
-      tabs: [
+      icons: {
+        mdiAccount,
+        mdiHome,
+        mdiBookOpenPageVariant,
+        mdiChat
+      },
+      images: {
+        floodBrand
+      },
+      drawer: true,
+      mini: false,
+      navItems: [
         {
-          name: "Home",
-          icon: mdiHome,
-          route: "home"
+          route: "home",
+          icon: "mdiHome",
+          name: "Home"
         },
         {
-          name: "Feed",
-          icon: mdiBookOpenPageVariant,
-          route: "feed"
+          route: "feed",
+          icon: "mdiBookOpenPageVariant",
+          name: "Feed"
         },
         {
-          name: "Chat",
-          icon: mdiChat,
-          route: "chat"
+          route: "chat",
+          icon: "mdiChat",
+          name: "Chart"
         }
       ]
     };
   },
   components: {
-    UserProfile: () => import("./UserProfile.vue")
+    UserProfile: () => import("@/modules/app/components/UserProfile")
   }
 };
 </script>
 
 <style>
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300&display=swap");
 </style>

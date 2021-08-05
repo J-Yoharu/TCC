@@ -1,13 +1,57 @@
 <template>
-  <div>
+  <v-container>
+    <v-row>
+      <v-col cols="12" md="4">
+        <v-card min-height="100%">
+          <v-card-title>
+            <p>
+              Nivel da <span style="color: rgb(65, 105, 225)">àgua</span> do rio
+              -
+              <span :class="`${statusWater.color}`">
+                {{ statusWater.state }}
+              </span>
+            </p>
+          </v-card-title>
+
+          <v-card-text>
+            <div class="d-flex justify-center"><Gout :porcent="porcent" /></div>
+            <div>Legenda:</div>
+            <div>
+              <v-list>
+                <v-list-item v-for="(status, index) in statuses" :key="index">
+                  <p>
+                    {{ status.text }} -
+                    <span :class="`${status.color}`">{{ status.state }}</span>
+                  </p>
+                </v-list-item>
+              </v-list>
+            </div>
+          </v-card-text>
+        </v-card>
+      </v-col>
+      <v-col cols="12" md="4">
+        <v-card min-height="100%">
+          <v-card-title>Atividades</v-card-title>
+          <v-card-text></v-card-text>
+        </v-card>
+      </v-col>
+      <v-col cols="12" md="4">
+        <v-row>
+          <v-col cols="12">
+            <WeatherCard />
+          </v-col>
+          <v-col cols="12">
+            <v-card>
+              <v-card-title> Último estado de alerta </v-card-title>
+              <v-card-text> 02/03/1997 02:00:00 </v-card-text>
+            </v-card>
+          </v-col>
+        </v-row>
+      </v-col>
+    </v-row>
+  </v-container>
+  <!-- <div>
     <v-row class="background">
-      <!-- <v-col
-        cols="12"
-        class="tw-bg-red-300 d-flex align-end pa-0"
-        style="height: 85vh"
-      >
-        <div style="height: 20%" class="tw-w-full tw-bg-blue-800 wave">a</div>
-      </v-col> -->
       <v-col
         cols="12"
         md="4"
@@ -89,52 +133,58 @@
         <RealTimeGraphic />
       </v-col>
     </v-row>
-  </div>
+  </div> -->
 </template>
 
 <script>
-import { mdiAccessPoint, mdiSend, mdiCloudDownload } from "@mdi/js";
-import { getWeather } from "../repositories/weatherRepository";
+import {
+  mdiAccessPoint,
+  mdiAlertCircleOutline,
+  mdiCloseCircleOutline,
+  mdiCheckCircleOutlined
+} from "@mdi/js";
 export default {
   data() {
     return {
+      statuses: [
+        {
+          text: "Maior que 89%",
+          state: "Emergência",
+          color: "tw-text-red-700"
+        },
+        {
+          text: "Entre 70 e 88%",
+          state: "Alerta",
+          color: "tw-text-yellow-400"
+        },
+        {
+          text: "Abaixo de 69%",
+          state: "Seguro",
+          color: "tw-text-green-600"
+        }
+      ],
       icons: {
         mdiAccessPoint,
-        mdiSend,
-        mdiCloudDownload
+        mdiAlertCircleOutline,
+        mdiCloseCircleOutline,
+        mdiCheckCircleOutlined
       },
-      weekDays: [
-        "Domingo",
-        "Segunda-feira",
-        "Terça-feira",
-        "Quarta-feira",
-        "Quinta-feira",
-        "Sexta-feira",
-        "Sábado"
-      ],
-      day: {
-        weather: {},
-        wind: {},
-        main: {},
-        city: "Santo André",
-        timestamp: null
-      },
+
       // carousel: 0,
       porcent: 70,
-      temperatura: 3,
       socket: null
     };
   },
   components: {
     Gout: () => import("../components/Gout.vue"),
-    RealTimeGraphic: () => import("../components/Graphic.vue")
+    WeatherCard: () => import("../components/WeatherCard.vue")
+    // RealTimeGraphic: () => import("../components/Graphic.vue")
   },
   computed: {
-    cardColor() {
-      return this.temperatura < 5 ? "blue" : "red";
-    },
-    today() {
-      return new Date().getDay();
+    statusWater() {
+      if (this.porcent > 89) return this.statuses[0];
+      if (this.porcent > 70 || this.porcent <= 88) return this.statuses[1];
+      return this.statuses[2];
     }
   },
   mounted() {
@@ -144,29 +194,8 @@ export default {
 
     if (!hasSocketEnv) console.error("tem o as variaveis de socket no .env!!!");
     else this.tryConnectOnSocket();
-
-    getWeather().then(resp => {
-      console.log(resp);
-      let data = {
-        weather: resp.data.weather[0],
-        main: resp.data.main,
-        wind: resp.data.wind,
-        timestamp: resp.data.dt
-      };
-      Object.assign(this.day, data);
-    });
   },
   methods: {
-    getIcon(name) {
-      if (name == null) return;
-      return `http://openweathermap.org/img/w/${name}.png`;
-    },
-    getDate(timestamp) {
-      if (timestamp == null) return;
-      let date = new Date(timestamp * 1000);
-      return `${date.toLocaleDateString("pt-BR")} ${date.getHours()}:
-       ${date.getMinutes()}`;
-    },
     tryConnectOnSocket() {
       this.socket = new WebSocket(
         `ws://${process.env.VUE_APP_WEBSOCKET_HOST}:${process.env.VUE_APP_WEBSOCKET_PORT}`

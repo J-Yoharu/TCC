@@ -1,5 +1,6 @@
 <template>
-  <div class="tw-relative">
+  <div style="max-width: 200px; height: 250px" class="d-flex align-end">
+    <div class="display-1 white--text center-absolute">{{ porcent }}%</div>
     <div class="shape">
       <div class="frame">
         <div class="wave" :style="`top:${100 - porcent - 20}%`"></div>
@@ -38,6 +39,13 @@ export default {
 </script>
 
 <style scoped>
+.center-absolute {
+  position: absolute;
+  left: 50%;
+  top: 200px;
+  transform: translate(-50%);
+  z-index: 100;
+}
 .shape {
   width: 200px;
   height: 200px;

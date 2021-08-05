@@ -22,7 +22,6 @@
       left
       :permanent="$vuetify.breakpoint.mdAndUp"
       color="#3F4254"
-      style="font-family: Poppins"
     >
       <template v-slot:prepend>
         <v-list>
@@ -36,7 +35,7 @@
                 </v-img>
                 <h4
                   class="d-flex justify-center pt-2"
-                  style="font-family: Poppins; font-weight: bold"
+                  style="font-weight: bold"
                 >
                   TAMANDUATEÍ HOJE
                 </h4>
@@ -61,10 +60,7 @@
             </v-list-item-icon>
 
             <v-list-item-content>
-              <v-list-item-title
-                class="text-subtitle-1"
-                style="color: white; font-family: Poppins !important"
-              >
+              <v-list-item-title class="text-subtitle-1" style="color: white">
                 {{ item.name }}
               </v-list-item-title>
             </v-list-item-content>
@@ -122,5 +118,4 @@ export default {
 </script>
 
 <style>
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300&display=swap");
 </style>

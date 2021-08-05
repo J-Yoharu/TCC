@@ -171,7 +171,7 @@ export default {
       },
 
       // carousel: 0,
-      porcent: 70,
+      porcent: 100,
       socket: null
     };
   },
@@ -183,7 +183,7 @@ export default {
   computed: {
     statusWater() {
       if (this.porcent > 89) return this.statuses[0];
-      if (this.porcent > 70 || this.porcent <= 88) return this.statuses[1];
+      if (this.porcent >= 70 && this.porcent <= 88) return this.statuses[1];
       return this.statuses[2];
     }
   },

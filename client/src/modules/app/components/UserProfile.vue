@@ -13,7 +13,7 @@
             </v-avatar>
           </v-list-item-icon>
           <span class="d-flex white--text">
-            Jonathas A.
+            Jonathas Augusto
             <v-icon color="white" v-text="icons.mdiChevronDown"></v-icon>
           </span>
         </v-list-item>

@@ -29,21 +29,19 @@
           </v-card-text>
         </v-card>
       </v-col>
+      <!-- Timeline -->
+      <Timeline />
       <v-col cols="12" md="4">
-        <v-card min-height="100%">
-          <v-card-title>Atividades</v-card-title>
-          <v-card-text></v-card-text>
-        </v-card>
-      </v-col>
-      <v-col cols="12" md="4">
-        <v-row>
+        <v-row no-gutters style="height: 100%">
           <v-col cols="12">
             <WeatherCard />
           </v-col>
           <v-col cols="12">
-            <v-card>
+            <v-card height="100%">
               <v-card-title> Último estado de alerta </v-card-title>
-              <v-card-text> 02/03/1997 02:00:00 </v-card-text>
+              <v-card-text class="text-center pb-0">
+                <div style="font-size: 22px">02/03/1997 02:00:00</div>
+              </v-card-text>
             </v-card>
           </v-col>
         </v-row>
@@ -177,7 +175,8 @@ export default {
   },
   components: {
     Gout: () => import("../components/Gout.vue"),
-    WeatherCard: () => import("../components/WeatherCard.vue")
+    WeatherCard: () => import("../components/WeatherCard.vue"),
+    Timeline: () => import("../components/TimelineFlood.vue")
     // RealTimeGraphic: () => import("../components/Graphic.vue")
   },
   computed: {

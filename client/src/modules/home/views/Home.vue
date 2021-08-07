@@ -46,92 +46,11 @@
           </v-col>
         </v-row>
       </v-col>
+      <v-col cols="12">
+        <RealTimeChart :chartData="dataResp" />
+      </v-col>
     </v-row>
   </v-container>
-  <!-- <div>
-    <v-row class="background">
-      <v-col
-        cols="12"
-        md="4"
-        class="d-flex justify-center align-center"
-        style="min-height: 300px"
-      >
-        <Gout :porcent="porcent" />
-      </v-col>
-      <v-col cols="12" md="4" class="d-flex justify-center align-center">
-        <v-card shaped>
-          <v-card-title class="justify-center">
-            <p>
-              Nivel da <span style="color: rgb(65, 105, 225)">àgua</span> do rio
-            </p>
-          </v-card-title>
-          <v-card-text class="text-center display-4">
-            {{ porcent }}%
-          </v-card-text>
-        </v-card>
-      </v-col>
-      <v-col
-        cols="12"
-        md="4"
-        class="d-flex flex-column justify-center align-center"
-      >
-        <v-icon x-large color="white" v-text="icons.mdiAccessPoint"></v-icon>
-        <p class="display-2 text-center white--text">
-          Monitorado em tempo real
-        </p>
-      </v-col>
-    </v-row>
-    <v-row>
-      <v-col cols="12" md="3" class="d-flex justify-center align-center">
-        <v-card>
-          <v-list-item two-line>
-            <v-list-item-content>
-              <v-list-item-title class="text-h5">
-                {{ day.city }}
-              </v-list-item-title>
-              <v-list-item-subtitle>
-                {{ weekDays[new Date().getDay()] }},
-                {{ getDate(day.timestamp) }},
-                {{ day.weather.description }}
-              </v-list-item-subtitle>
-            </v-list-item-content>
-          </v-list-item>
-
-          <v-card-text>
-            <v-row align="center">
-              <v-col class="text-h2" cols="6">
-                {{ Math.round(day.main.temp) }}&deg;C
-              </v-col>
-              <v-col cols="6">
-                <v-img
-                  :src="getIcon(day.weather.icon)"
-                  alt="Sunny image"
-                  width="92"
-                ></v-img>
-              </v-col>
-            </v-row>
-          </v-card-text>
-
-          <v-list-item>
-            <v-list-item-icon>
-              <v-icon v-text="icons.mdiSend"></v-icon>
-            </v-list-item-icon>
-            <v-list-item-subtitle>23 km/h</v-list-item-subtitle>
-          </v-list-item>
-
-          <v-list-item>
-            <v-list-item-icon>
-              <v-icon v-text="icons.mdiCloudDownload"></v-icon>
-            </v-list-item-icon>
-            <v-list-item-subtitle>48%</v-list-item-subtitle>
-          </v-list-item>
-        </v-card>
-      </v-col>
-      <v-col>
-        <RealTimeGraphic />
-      </v-col>
-    </v-row>
-  </div> -->
 </template>
 
 <script>
@@ -144,6 +63,36 @@ import {
 export default {
   data() {
     return {
+      dataResp: [
+        {
+          value: 10,
+          text: "15:00"
+        },
+        {
+          value: 20,
+          text: "14:00"
+        },
+        {
+          value: 30,
+          text: "13:00"
+        },
+        {
+          value: 40,
+          text: "12:00"
+        },
+        {
+          value: 50,
+          text: "11:00"
+        },
+        {
+          value: 60,
+          text: "10:00"
+        },
+        {
+          value: 10,
+          text: "09:00"
+        }
+      ],
       statuses: [
         {
           text: "Maior que 89%",
@@ -176,7 +125,8 @@ export default {
   components: {
     Gout: () => import("../components/Gout.vue"),
     WeatherCard: () => import("../components/WeatherCard.vue"),
-    Timeline: () => import("../components/TimelineFlood.vue")
+    Timeline: () => import("../components/TimelineFlood.vue"),
+    RealTimeChart: () => import("../components/RealTimeChart.vue")
     // RealTimeGraphic: () => import("../components/Graphic.vue")
   },
   computed: {

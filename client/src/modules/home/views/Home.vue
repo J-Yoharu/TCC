@@ -50,6 +50,7 @@
         <RealTimeChart :chartData="dataResp" />
       </v-col>
     </v-row>
+    <v-data-table :items="riverData" :headers="header"> </v-data-table>
   </v-container>
 </template>
 
@@ -60,9 +61,19 @@ import {
   mdiCloseCircleOutline,
   mdiCheckCircleOutlined
 } from "@mdi/js";
+import { riverListener } from "@/modules/home/repositories/riverRealTimeRepository";
+
 export default {
   data() {
     return {
+      header: [
+        { text: "Porcentagem", value: "porcent" },
+        { text: "Status", value: "status" },
+        {
+          text: "Timestamp",
+          value: "timestamp"
+        }
+      ],
       dataResp: [
         {
           value: 10,
@@ -110,6 +121,7 @@ export default {
           color: "tw-text-green-600"
         }
       ],
+      riverData: [],
       icons: {
         mdiAccessPoint,
         mdiAlertCircleOutline,
@@ -153,7 +165,40 @@ export default {
       this.socket.onmessage = ev => {
         this.porcent = ev.data;
       };
+    },
+    formatData(data) {
+      let arr = [];
+      Object.keys(data).forEach(index => {
+        data[index] != "" ? arr.push(data[index]) : false;
+      });
+      return arr;
     }
+  },
+  created() {
+    riverListener()
+      .limitToLast(30)
+      .orderByChild("timestamp")
+      .once(
+        "value",
+        res => {
+          this.riverData = this.formatData(res.val());
+        },
+        errorObject => {
+          console.log("falhou na leitura: " + errorObject.name);
+        }
+      );
+
+    riverListener()
+      .limitToLast(1)
+      .on(
+        "value",
+        res => {
+          this.riverData.push(this.formatData(res.val())[0]);
+        },
+        errorObject => {
+          console.log("falhou na leitura: " + errorObject.name);
+        }
+      );
   }
 };
 </script>

@@ -14,10 +14,10 @@
 
               <div class="ml-5">
                 <div>
-                  {{ post.user.first_name }}
+                  {{ post.user.name }}
                 </div>
                 <div class="caption ml-5">
-                  {{ post.created_at }}
+                  {{ post.createdAt }}
                 </div>
               </div>
             </div>
@@ -48,7 +48,7 @@
               </v-col>
             </v-row>
             <div class="d-flex">
-              <div class="mr-6">{{ post.likes.length }} Curtidas</div>
+              <div class="mr-6">{{ post.reactions.length }} Curtidas</div>
               <div>{{ post.comments.length }} Comentários</div>
             </div>
           </v-card-text>
@@ -101,7 +101,14 @@
 
 <script>
 import { mdiDotsHorizontal, mdiHand, mdiComment, mdiHandPeace } from "@mdi/js";
+import { getPosts } from "../repositories/postRepository";
 export default {
+  created() {
+    getPosts().then(res => {
+      console.log(res.data);
+      this.posts = res.data;
+    });
+  },
   components: {
     Avatar: () => import("@/modules/app/components/Avatar")
   },
@@ -113,144 +120,7 @@ export default {
         mdiComment,
         mdiHandPeace
       },
-      posts: [
-        {
-          description: "Aqui jáz uma descrição de um simples post",
-          images: [
-            "https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png",
-            "https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png",
-            "https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png"
-          ],
-          created_at: "07/07/2021",
-          user: {
-            first_name: "Jonathas Augusto",
-            last_name: "Augusto",
-            initials: "JA",
-            avatar:
-              "https://kanto.legiaodosherois.com.br/w760-h398-gnw-cfill-q80/wp-content/uploads/2020/06/legiao_1dUgHsj4Oy_Z.jpg.jpeg"
-          },
-          likes: [
-            {
-              first_name: "Jonathas",
-              last_name: "Augusto",
-              initials: "JA",
-              avatar:
-                "https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png"
-            },
-            {
-              first_name: "Jonathas",
-              last_name: "Augusto",
-              initials: "JA",
-              avatar:
-                "https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png"
-            },
-            {
-              first_name: "Jonathas",
-              last_name: "Augusto",
-              initials: "JA",
-              avatar:
-                "https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png"
-            },
-            {
-              first_name: "Jonathas",
-              last_name: "Augusto",
-              initials: "JA",
-              avatar:
-                "https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png"
-            }
-          ],
-          comments: [
-            {
-              comment: "Porra, tu é daora",
-              user: {
-                first_name: "Jonathas",
-                last_name: "Augusto",
-                initials: "JA",
-                avatar:
-                  "https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png"
-              }
-            },
-            {
-              comment: "Porra, tu é feio",
-              user: {
-                first_name: "Jonathas",
-                last_name: "Augusto",
-                initials: "JA",
-                avatar:
-                  "https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png"
-              }
-            }
-          ]
-        },
-        {
-          description: "Aqui jáz uma descrição de um simples post",
-          images: [
-            "https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png",
-            "https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png",
-            "https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png"
-          ],
-          created_at: "07/07/2021",
-          user: {
-            first_name: "Jonathas Augusto",
-            last_name: "Augusto",
-            initials: "JA",
-            avatar:
-              "https://kanto.legiaodosherois.com.br/w760-h398-gnw-cfill-q80/wp-content/uploads/2020/06/legiao_1dUgHsj4Oy_Z.jpg.jpeg"
-          },
-          likes: [
-            {
-              first_name: "Jonathas",
-              last_name: "Augusto",
-              initials: "JA",
-              avatar:
-                "https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png"
-            },
-            {
-              first_name: "Jonathas",
-              last_name: "Augusto",
-              initials: "JA",
-              avatar:
-                "https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png"
-            },
-            {
-              first_name: "Jonathas",
-              last_name: "Augusto",
-              initials: "JA",
-              avatar:
-                "https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png"
-            },
-            {
-              first_name: "Jonathas",
-              last_name: "Augusto",
-              initials: "JA",
-              avatar:
-                "https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png"
-            }
-          ],
-          comments: [
-            {
-              comment: "Porra, tu é daora",
-              user: {
-                first_name: "Jonathas",
-                last_name: "Augusto",
-                initials: "JA",
-                avatar:
-                  "https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png"
-              }
-            },
-            {
-              comment: "Porra, tu é feio",
-              user: {
-                first_name: "Jonathas",
-                last_name: "Augusto",
-                initials: "JA",
-                avatar:
-                  "https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png"
-              }
-            }
-          ]
-        }
-      ]
+      posts: []
     };
   }
 };

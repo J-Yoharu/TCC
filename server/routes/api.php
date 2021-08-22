@@ -3,7 +3,8 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
-use App\Services\FirebaseService;
+use App\Http\Controllers\CommentController;
+use App\Http\Controllers\ReactionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,6 +29,17 @@ Route::prefix('posts')->group(function () {
     Route::delete('/{id}', [PostController::class, 'delete']);
 });
 
+<<<<<<< HEAD
 Route::get('/teste', function () {
     $ser = new FirebaseService();
+=======
+Route::prefix('comments')->group(function () {
+    Route::get('/', [CommentController::class, 'index']);
+    Route::post('/', [CommentController::class, 'store']);
+});
+
+Route::prefix('reactions')->group(function () {
+    Route::get('/', [ReactionController::class, 'index']);
+    Route::post('/', [ReactionController::class, 'store']);
+>>>>>>> 4287c1d6354e66cea0b0750f1963f4ced5670fd6
 });

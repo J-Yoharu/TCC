@@ -2,75 +2,46 @@
 
 namespace App\Http\Controllers;
 
-use Exception;
-use Illuminate\Http\Request;
 use App\Repositories\PostRepository;
+use Illuminate\Http\Request;
+use App\Services\FileService;
+use App\Http\Resources\PostResource;
 
 class PostController extends Controller
 {
 
-    protected $repository;
+    private $repository;
 
     public function __construct(PostRepository $repository)
     {
         $this->repository = $repository;
     }
 
-    public function index(Request $request)
+    public function index()
     {
-        try {
-            if ($request->includes) {
-                $this->repository->with($request->includes);
-            }
+        $this->repository->with(['user', 'comments', 'reactions', 'files']);
+        $posts = $this->repository->all();
 
-            $posts = $this->repository->all();
-            return response()->json($posts);
-        } catch (Exception $exception) {
-            return response()->json($exception->getMessage(), $exception->getCode());
-        }
+        return response()->json(PostResource::collection($posts));
     }
 
-    public function find($id)
+    public function store(Request $request, FileService $service)
     {
-        try {
-            $post = $this->repository->with('user')->find($id);
-            return response()->json($post);
-        } catch (Exception $exception) {
-            return response()->json($exception->getMessage(), 501);
-        }
+        $file = $service->attach($request->file);
+
+
+        $attrs = $request->only(['description', 'user_id']);
+
+        $post = $this->repository->create($attrs);
+
+        $post->files()->attach($file);
+
+
+
+        return response()->json($post);
     }
 
-    public function store(Request $request)
+    public function update()
     {
-        try {
-            $attributes = $request->only(['description', 'user_id']);
-            $post = $this->repository->create($attributes);
-            return response()->json($post);
-        } catch (Exception $exception) {
-            return response()->json($exception->getMessage(), $exception->getCode());
-        }
-    }
-
-    public function update($id, Request $request)
-    {
-        try {
-            $attributes = $request->only(['description']);
-
-            $post = $this->repository->update($attributes, $id);
-
-            return response()->json($post);
-        } catch (Exception $exception) {
-            return response()->json($exception->getMessage(), 501);
-        }
-    }
-
-    public function delete($id)
-    {
-        try {
-            $post = $this->repository->delete($id);
-            return response()->json($post);
-        } catch (Exception $exception) {
-            return response()->json($exception->getMessage(), 501);
-        }
     }
 }

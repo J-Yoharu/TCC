@@ -6,6 +6,12 @@
   #include "Firebase.h"
   #include "WaterMonitor.h"
 
+  //DEFINIÇÃO DO SENSOR E SEUS PINOS
+  #define trigPin 12
+  #define echoPin 14
+
+   
+
   //get fingerprint from firebaseio.com https://www.grc.com/fingerprints.htm SÓ COLAR A URL DO SITE
   #define FIREBASE_DATABASEURL "https://tcc-unip-4d803-default-rtdb.firebaseio.com/"
   #define FINGERPRINT "50:89:50:57:90:1F:37:E3:B8:F3:5B:02:ED:3A:65:6E:6A:34:DB:93" //para sites HTTPS
@@ -29,12 +35,16 @@
   char data[5];
   
  //NOME E SENHA DA REDE WI-FI
-  const char *ssid ="Jonabru";
-  const char *password ="11029701b";
+  const char *ssid ="NETBLUE-Malware";
+  const char *password ="2000888.";
 
   ESP8266WebServer server(80);// objeto do servidor na porta 80, padrão
 
   void setup() {
+
+    //MODO DO SENSOR
+        pinMode(trigPin,OUTPUT);
+        pinMode(echoPin,INPUT);
     
   Serial.begin(valSerial);
   webSocket.begin();
@@ -47,24 +57,25 @@
 
 void loop() {
         webSocket.loop();
-        String data = firebase.get("led");
-        Serial.print(data);
+//        String data = firebase.get("led");
+//        Serial.print(data);
     
-//        server.handleClient(); //CHAMANDO REQUISIÇÕES HTTP CONTINUAMENTE 
+        server.handleClient(); //CHAMANDO REQUISIÇÕES HTTP CONTINUAMENTE 
         
-//        float distance = getDistance();
-//        float percent = monitor.percent_volume_of_water(distance, altura, raio, total_volume, pi);
-//        
-//        monitor.alert(percent);
-//  
-//        Serial.print("Distância em CM: ");
-//        Serial.println(distance);
-//        Serial.println(percent);
-//        sendToSocket(percent);                                   
+        float distance = getDistance();
+        float percent = monitor.percent_volume_of_water(distance, altura, raio, total_volume, pi);
+        
+        monitor.alert(percent);
+  
+        Serial.print("Distância em CM: ");
+        Serial.println(distance);
+        Serial.println(percent);
+        sendToSocket(percent);                                   
    }
 
 
 float getDistance(){
+   
       // CONFIGURANDO O SENSOR DE DISTANCIA ULTRASSONICO
       digitalWrite(trigPin, LOW);
       delay(500);

@@ -13,9 +13,7 @@
   #define limite1 40
   #define limite2 80
 
-//DEFINIÇÃO DO SENSOR E SEUS PINOS
-  #define trigPin 12
-  #define echoPin 14
+
 
 class WaterMonitor {
     private: 

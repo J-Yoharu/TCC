@@ -65,9 +65,7 @@ void WaterMonitor::init(){
         pinMode(YellowLed,OUTPUT);
         pinMode(WhiteLed,OUTPUT);
 
-        //MODO DO SENSOR
-        pinMode(trigPin,OUTPUT);
-        pinMode(echoPin,INPUT);
+      
 
         // buzzer
 

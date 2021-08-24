@@ -31,7 +31,7 @@
               class="d-flex justify-center"
             >
               <div>
-                <v-img :src="images.floodBrand" class="ml-4" width="90">
+                <v-img :src="images.floodBrand" class="ml-4" width="300">
                 </v-img>
                 <h4
                   class="d-flex justify-center pt-2"
@@ -85,10 +85,10 @@ export default {
         mdiAccount,
         mdiHome,
         mdiBookOpenPageVariant,
-        mdiChat
+        mdiChat,
       },
       images: {
-        floodBrand
+        floodBrand,
       },
       drawer: true,
       mini: false,
@@ -96,26 +96,25 @@ export default {
         {
           route: "home",
           icon: "mdiHome",
-          name: "Home"
+          name: "Home",
         },
         {
           route: "feed",
           icon: "mdiBookOpenPageVariant",
-          name: "Feed"
+          name: "Feed",
         },
         {
           route: "chat",
           icon: "mdiChat",
-          name: "Chart"
-        }
-      ]
+          name: "Chart",
+        },
+      ],
     };
   },
   components: {
-    UserProfile: () => import("@/modules/app/components/UserProfile")
-  }
+    UserProfile: () => import("@/modules/app/components/UserProfile"),
+  },
 };
 </script>
 
-<style>
-</style>
+<style></style>

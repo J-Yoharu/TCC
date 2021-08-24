@@ -31,13 +31,13 @@
               class="d-flex justify-center"
             >
               <div>
-                <v-img :src="images.floodBrand" class="ml-4" width="300">
+                <v-img :src="images.floodBrand" class="ml-4" width="280">
                 </v-img>
                 <h4
                   class="d-flex justify-center pt-2"
                   style="font-weight: bold"
                 >
-                  TAMANDUATEÍ HOJE
+                  <!-- TAMANDUATEÍ HOJE -->
                 </h4>
               </div>
             </v-list-item-title>

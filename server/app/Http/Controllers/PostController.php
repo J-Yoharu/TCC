@@ -20,23 +20,19 @@ class PostController extends Controller
     public function index()
     {
         $this->repository->with(['user', 'comments', 'reactions', 'files']);
-        $posts = $this->repository->all();
+        $posts = $this->repository->orderByDesc('id')->paginate(10);
 
         return response()->json(PostResource::collection($posts));
     }
 
     public function store(Request $request, FileService $service)
     {
-        $file = $service->attach($request->file);
-
 
         $attrs = $request->only(['description', 'user_id']);
 
         $post = $this->repository->create($attrs);
 
-        $post->files()->attach($file);
-
-
+        $service->attach($request->file('file'), $post);
 
         return response()->json($post);
     }

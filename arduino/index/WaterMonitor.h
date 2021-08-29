@@ -22,7 +22,7 @@ class WaterMonitor {
         void init();
         float percent_volume_of_water(float distancia, float altura, float raio, float total_volume, float pi);
         float volume_total(float raio, float altura, float pi);
-        void alert(float percent);
+        String alert(float percent);
 };
 
 #endif

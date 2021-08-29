@@ -30,7 +30,7 @@
         </v-card>
       </v-col>
       <!-- Timeline -->
-      <Timeline />
+      <Timeline :riverData="[...riverData].reverse().slice(0, 7)" />
       <v-col cols="12" md="4">
         <v-row no-gutters style="height: 100%">
           <v-col cols="12">
@@ -40,17 +40,35 @@
             <v-card height="100%">
               <v-card-title> Último estado de alerta </v-card-title>
               <v-card-text class="text-center pb-0">
-                <div style="font-size: 22px">02/03/1997 02:00:00</div>
+                <div style="font-size: 22px">
+                  {{
+                    lastEmergency.time
+                      ? moment(lastEmergency.time * 1000).format(
+                          "DD/MM/YYYY HH:mm:ss"
+                        )
+                      : ""
+                  }}
+                </div>
               </v-card-text>
             </v-card>
           </v-col>
         </v-row>
       </v-col>
       <v-col cols="12">
-        <RealTimeChart :chartData="dataResp" />
+        <RealTimeChart
+          :key="riverData.length"
+          :chartData="[...riverData].reverse().slice(0, 100)"
+        />
       </v-col>
     </v-row>
-    <v-data-table :items="riverData" :headers="header"> </v-data-table>
+    <!-- <v-data-table :items="riverData" :headers="header">
+      <template v-slot:[`item.porcent`]="{ item }">
+        {{ item.porcent }} %
+      </template>
+      <template v-slot:[`item.time`]="{ item }">
+        {{ moment(item.time * 1000).format("DD/MM/YYYY HH:mm") }}
+      </template>
+    </v-data-table> -->
   </v-container>
 </template>
 
@@ -71,7 +89,7 @@ export default {
         { text: "Status", value: "status" },
         {
           text: "Timestamp",
-          value: "timestamp"
+          value: "time"
         }
       ],
       dataResp: [
@@ -104,6 +122,7 @@ export default {
           text: "09:00"
         }
       ],
+      lastEmergency: {},
       statuses: [
         {
           text: "Maior que 89%",
@@ -163,6 +182,7 @@ export default {
       );
 
       this.socket.onmessage = ev => {
+        console.log(ev.data);
         this.porcent = ev.data;
       };
     },
@@ -176,8 +196,9 @@ export default {
   },
   created() {
     riverListener()
-      .limitToLast(30)
-      .orderByChild("timestamp")
+      .orderByChild("time")
+      .startAt(Math.floor(new Date("2021-08-28 00:00:00") / 1000))
+      .endAt(Math.floor(new Date("2021-08-28 23:59:59") / 1000))
       .once(
         "value",
         res => {
@@ -187,6 +208,14 @@ export default {
           console.log("falhou na leitura: " + errorObject.name);
         }
       );
+
+    riverListener()
+      .orderByChild("porcent")
+      .startAt(89)
+      .limitToLast(1)
+      .once("value", res => {
+        this.lastEmergency = this.formatData(res.val())[0];
+      });
 
     riverListener()
       .limitToLast(1)

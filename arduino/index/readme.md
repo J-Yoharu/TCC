@@ -6,8 +6,6 @@ Para instalar uma biblioteca, vá em `sketch >> Incluir biblioteca >> gerenciar 
 
 ### Instalar biblioteca `websockets` by `Markus Sattler` v 2.3.5
 
-### Instalar biblioteca `ArduinoJson` by `Benoit Blanchon` v 5.13.4
-
-Para instalar uma placa, vá em `Ferramentas >> Placa >> Gerenciador de placas`
-
 ### Instalar placa `esp8266` by `ESP8266 Community` v 2.7.4
+
+### Instalar biblioteca `NTPClient` by `Fabrice weinberg` v3.2.0

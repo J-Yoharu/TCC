@@ -12,11 +12,15 @@ class Firebase {
       String database;
       String FIREBASE_DATABASEURL;
       String FINGERPRINT;
-      String geta();
+      void connect(String database);
+      String validStatus(int status);
+      
       
     public:
      void init(String dbUrl,String fingerprint);
      String get(String database);
+     void create(String database, String value);
+     
 };
 
 #endif

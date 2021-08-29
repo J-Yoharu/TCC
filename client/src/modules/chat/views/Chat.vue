@@ -9,27 +9,7 @@
             <v-icon v-text="icons.mdiAccountSearch"> </v-icon>
           </v-btn>
         </v-toolbar>
-        <v-list two-line>
-          <v-list-item
-            class="mb-2"
-            link
-            v-for="(chat, index) in chats"
-            :key="index"
-          >
-            <v-list-item-avatar class="mr-2">
-              <Avatar :user="chat.user" />
-            </v-list-item-avatar>
-            <v-list-item-content>
-              <v-list-item-title>
-                {{ chat.user.first_name }}
-              </v-list-item-title>
-              <v-list-item-subtitle>
-                {{ chat.last_message }}
-              </v-list-item-subtitle>
-              <v-divider></v-divider>
-            </v-list-item-content>
-          </v-list-item>
-        </v-list>
+        <User :users="users" />
       </v-card>
     </v-col>
     <v-col cols="12" md="8">
@@ -40,12 +20,14 @@
 
 <script>
 import { mdiAccountSearch } from "@mdi/js";
+import socket from "@/plugins/socket";
 export default {
   data() {
     return {
       icons: {
         mdiAccountSearch
       },
+      users: [],
       chats: [
         {
           user: {
@@ -70,8 +52,26 @@ export default {
       ]
     };
   },
+  created() {
+    socket.on("connect", () => {
+      console.log("conectou o front");
+    });
+
+    socket.on("users", data => {
+      this.users = data.users;
+      console.log(data.data);
+    });
+  },
   components: {
-    Avatar: () => import("@/modules/app/components/Avatar.vue")
+    User: () => import("../components/User")
+  },
+  destroyed() {
+    socket.off("connect");
+    socket.off("disconnect");
+    socket.off("users");
+    socket.off("user connected");
+    socket.off("user disconnected");
+    socket.off("private message");
   }
 };
 </script>

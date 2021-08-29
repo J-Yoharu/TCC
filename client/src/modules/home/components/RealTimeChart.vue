@@ -1,6 +1,7 @@
 <template>
   <apexchart
     height="400px"
+    style="min-height: 400px"
     type="area"
     :options="options"
     :series="series"
@@ -46,11 +47,10 @@ export default {
     let texts = [];
     let values = [];
     this.chartData.forEach(data => {
-      values.push(data.value);
-      texts.push(data.text);
+      values.push(data.porcent);
+      texts.push(this.moment(data.time * 1000).format("HH:mm"));
     });
-    // this.series = values;
-    // this.texts = texts;
+
     this.$refs.realTimeChart.updateOptions({
       xaxis: {
         categories: texts
@@ -61,22 +61,6 @@ export default {
         data: values
       }
     ]);
-    console.log(this.$refs.realTimeChart);
-    // console.log(this.options.xaxis.categories.concat(["a", "b", "c"]));
-    // console.log(this.series[0].data.concat([100, 200, 300]));
-    // setTimeout(() => {
-    //   console.log("ativado modo mortifero");
-    //   this.$refs.realTimeChart.updateOptions({
-    //     xaxis: {
-    //       categories: this.options.xaxis.categories.concat(["a", "b", "c"])
-    //     }
-    //   });
-    //   this.$refs.realTimeChart.updateSeries([
-    //     {
-    //       data: this.series[0].data.concat([100, 200, 300])
-    //     }
-    //   ]);
-    // }, 5000);
   }
 };
 </script>

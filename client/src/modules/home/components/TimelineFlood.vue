@@ -5,19 +5,19 @@
       <v-card-text>
         <v-timeline align-top dense>
           <v-timeline-item
-            v-for="(item, index) in activities"
+            v-for="(item, index) in riverData"
+            :color="setColor(item.status)"
             :key="index"
-            :color="item.type"
           >
             <template v-slot:opposite> TASD </template>
 
             <v-row justify="space-between">
               <v-col cols="7">
-                {{ item.text }}
+                {{ item.status }}
               </v-col>
               <v-col class="text-left" cols="5">
                 <strong>
-                  {{ item.hour }}
+                  {{ moment(item.time * 1000).format("HH:mm:ss") }}
                 </strong>
               </v-col>
             </v-row>
@@ -31,48 +31,34 @@
 <script>
 import { mdiWaves } from "@mdi/js";
 export default {
+  props: {
+    riverData: {
+      type: Array,
+      required: true
+    }
+  },
+  methods: {
+    setColor(status) {
+      let color = "tw-text-red-700";
+      switch (status) {
+        case "Emergência":
+          color = "red";
+          break;
+        case "Alerta":
+          color = "warning";
+          break;
+        case "Seguro":
+          color = "success";
+          break;
+      }
+      return color;
+    }
+  },
   data() {
     return {
       icons: {
         mdiWaves
-      },
-      activities: [
-        {
-          type: "warning",
-          hour: "8:00 pm",
-          text: "Alerta"
-        },
-        {
-          type: "red",
-          hour: "9:00 pm",
-          text: "Emergência"
-        },
-        {
-          type: "success",
-          hour: "10:00 pm",
-          text: "Seguro"
-        },
-        {
-          type: "red",
-          hour: "11:00 pm",
-          text: "Emergência"
-        },
-        {
-          type: "success",
-          hour: "12:00 pm",
-          text: "Seguro"
-        },
-        {
-          type: "red",
-          hour: "13:00 am",
-          text: "Emergência"
-        },
-        {
-          type: "success",
-          hour: "14:00 am",
-          text: "Seguro"
-        }
-      ]
+      }
     };
   }
 };

@@ -5,11 +5,14 @@
   #include <ESP8266WiFi.h>
   #include "Firebase.h"
   #include "WaterMonitor.h"
-
+  #include <NTPClient.h>
+  #include <WiFiUdp.h>
+  
   //DEFINIÇÃO DO SENSOR E SEUS PINOS
   #define trigPin 12
   #define echoPin 14
-
+  WiFiUDP ntpUDP;
+  NTPClient timeClient(ntpUDP, "br.pool.ntp.org");
    
 
   //get fingerprint from firebaseio.com https://www.grc.com/fingerprints.htm SÓ COLAR A URL DO SITE
@@ -35,8 +38,8 @@
   char data[5];
   
  //NOME E SENHA DA REDE WI-FI
-  const char *ssid ="NETBLUE-Malware";
-  const char *password ="2000888.";
+  const char *ssid ="Jonabru";
+  const char *password ="11029701b";
 
   ESP8266WebServer server(80);// objeto do servidor na porta 80, padrão
 
@@ -45,7 +48,7 @@
     //MODO DO SENSOR
         pinMode(trigPin,OUTPUT);
         pinMode(echoPin,INPUT);
-    
+    timeClient.begin();
   Serial.begin(valSerial);
   webSocket.begin();
   connectWifi();
@@ -57,20 +60,19 @@
 
 void loop() {
         webSocket.loop();
-//        String data = firebase.get("led");
-//        Serial.print(data);
     
         server.handleClient(); //CHAMANDO REQUISIÇÕES HTTP CONTINUAMENTE 
-        
-        float distance = getDistance();
-        float percent = monitor.percent_volume_of_water(distance, altura, raio, total_volume, pi);
-        
-        monitor.alert(percent);
   
-        Serial.print("Distância em CM: ");
-        Serial.println(distance);
-        Serial.println(percent);
-        sendToSocket(percent);                                   
+        float percent = monitor.percent_volume_of_water(getDistance(), altura, raio, total_volume, pi);
+        int percentTemp = random(0,100);
+        String Riverstatus = monitor.alert(percentTemp);
+        
+        String data = "{\"porcent\":"+(String)percentTemp+",\"status\":\""+Riverstatus+"\",\"time\":"+getTimestampNow()+"}";
+        firebase.create("RiverData", data);
+        delay(1000);
+
+        //mudar a assinatura de int para float;
+        sendToSocket(percentTemp);                                   
    }
 
 
@@ -87,11 +89,16 @@ float getDistance(){
       return distance;
 }
 
-void sendToSocket(float value){
+void sendToSocket(int value){
    char *valor = dtostrf(value,4,0,data);
     webSocket.broadcastTXT(valor);
 }
 
+unsigned long getTimestampNow() {
+  timeClient.update();
+  unsigned long now = timeClient.getEpochTime();
+  return now;
+}
 
 void connectWifi()
 {
@@ -102,5 +109,5 @@ void connectWifi()
     delay(500);
   }
   Serial.println("Conectado a: ");
-  Serial.print(WiFi.localIP());
+  Serial.println(WiFi.localIP());
 }

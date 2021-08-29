@@ -21,7 +21,7 @@ class PostResource extends JsonResource
             'user' => $this->user,
             'comments' => $this->comments,
             'reactions' => $this->reactions,
-            'files' => $this->files,
+            'files' => FileResource::collection($this->files),
             'createdAt' => $this->created_at->format('d/m/Y H:i'),
             'updatedAt' => $this->updated_at->format('d/m/Y H:i')
         ];

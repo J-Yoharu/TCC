@@ -9,7 +9,9 @@ Vue.use(VueRouter);
 Vue.use(VueApexCharts);
 
 Vue.component("apexchart", VueApexCharts);
+import moment from "moment";
 
+Vue.prototype.moment = moment;
 new Vue({
   vuetify,
   ...Bootstrap,

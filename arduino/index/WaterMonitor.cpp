@@ -25,14 +25,15 @@ float WaterMonitor::percent_volume_of_water(float distancia, float altura, float
     return percent;
 }
 
-void WaterMonitor::alert(float percent) {
+String WaterMonitor::alert(float percent) {
   
                                    if(percent <= limite1 ){        
 
                                          noTone(buzzer);
                                          digitalWrite(WhiteLed, HIGH);
                                          digitalWrite(RedLed, LOW);
-                                         digitalWrite(YellowLed, LOW);      
+                                         digitalWrite(YellowLed, LOW);
+                                         return "Seguro";      
                                    }else if ((percent <= limite2) && (percent >= limite1)){
                    
                                         digitalWrite(YellowLed, HIGH);   
@@ -47,7 +48,7 @@ void WaterMonitor::alert(float percent) {
                                         delay(1000);
                                         noTone(buzzer);  
                                         delay(1000);   
-                                                                                                                                                     
+                                        return "Alerta";                                                                                                             
                                    }else {
 
                                         digitalWrite(RedLed, HIGH);
@@ -56,6 +57,7 @@ void WaterMonitor::alert(float percent) {
 
                                         // ligando o buzzer
                                         tone(buzzer, 1000);
+                                        return "Emergência";
                                          }  
 }
 

@@ -7,14 +7,18 @@ const io = require("socket.io")(httpServer, {
 
 io.on("connection", (socket) => {
   console.log("user Connected");
+
   const users = [];
 
-  for (let [id] of io.of("/").sockets) {
+  io.of("/").sockets.forEach(function (data) {
     users.push({
-      name: id,
+      name: data.id,
+      connected: data.connected,
+      disconnected: data.disconnected,
     });
-  }
-  io.emit("users", users);
+  });
+
+  io.emit("get-users-on", users);
 });
 
 httpServer.listen(3001, () =>

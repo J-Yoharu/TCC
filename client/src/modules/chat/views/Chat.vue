@@ -57,9 +57,12 @@ export default {
       console.log("conectou o front");
     });
 
-    socket.on("users", data => {
-      this.users = data.users;
-      console.log(data.data);
+    socket.on("get-users-on", users => {
+      this.users = users;
+    });
+
+    socket.on("disconnect", () => {
+      console.log("Desconectou o front");
     });
   },
   components: {

@@ -57,7 +57,7 @@
       <v-col cols="12">
         <RealTimeChart
           :key="riverData.length"
-          :chartData="[...riverData].reverse().slice(0, 100)"
+          :chartData="[...riverData].slice(0, 100)"
         />
       </v-col>
     </v-row>
@@ -195,10 +195,11 @@ export default {
     }
   },
   created() {
+    let now = this.moment();
     riverListener()
       .orderByChild("time")
-      .startAt(Math.floor(new Date("2021-08-28 00:00:00") / 1000))
-      .endAt(Math.floor(new Date("2021-08-28 23:59:59") / 1000))
+      .startAt(Math.floor(now.startOf("day").valueOf() / 1000))
+      .endAt(now.endOf("day").valueOf() / 1000)
       .once(
         "value",
         res => {

@@ -106,7 +106,12 @@ export default {
         {
           route: "chat",
           icon: "mdiChat",
-          name: "Chart",
+          name: "Chat",
+        },
+        {
+          route: "info",
+          icon: "mdiChat",
+          name: "Informações",
         },
       ],
     };

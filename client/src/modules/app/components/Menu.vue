@@ -21,7 +21,7 @@
       fixed
       left
       :permanent="$vuetify.breakpoint.mdAndUp"
-      color="#3F4254"
+      color="#024798"
     >
       <template v-slot:prepend>
         <v-list>
@@ -85,10 +85,10 @@ export default {
         mdiAccount,
         mdiHome,
         mdiBookOpenPageVariant,
-        mdiChat,
+        mdiChat
       },
       images: {
-        floodBrand,
+        floodBrand
       },
       drawer: true,
       mini: false,
@@ -96,29 +96,29 @@ export default {
         {
           route: "home",
           icon: "mdiHome",
-          name: "Home",
+          name: "Home"
         },
         {
           route: "feed",
           icon: "mdiBookOpenPageVariant",
-          name: "Feed",
+          name: "Feed"
         },
         {
           route: "chat",
           icon: "mdiChat",
-          name: "Chat",
+          name: "Chat"
         },
         {
           route: "info",
           icon: "mdiChat",
-          name: "Informações",
-        },
-      ],
+          name: "Informações"
+        }
+      ]
     };
   },
   components: {
-    UserProfile: () => import("@/modules/app/components/UserProfile"),
-  },
+    UserProfile: () => import("@/modules/app/components/UserProfile")
+  }
 };
 </script>
 

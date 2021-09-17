@@ -9,7 +9,7 @@
           >
           </v-app-bar-nav-icon>
           <v-spacer></v-spacer>
-          <UserProfile type="app" />
+          <UserProfile />
         </v-col>
       </v-row>
     </v-toolbar>
@@ -36,9 +36,7 @@
                 <h4
                   class="d-flex justify-center pt-2"
                   style="font-weight: bold"
-                >
-                  <!-- TAMANDUATEÍ HOJE -->
-                </h4>
+                ></h4>
               </div>
             </v-list-item-title>
           </v-list-item>
@@ -103,11 +101,11 @@ export default {
           icon: "mdiBookOpenPageVariant",
           name: "Feed"
         },
-        {
-          route: "chat",
-          icon: "mdiChat",
-          name: "Chat"
-        },
+        // {
+        //   route: "chat",
+        //   icon: "mdiChat",
+        //   name: "Chat"
+        // },
         {
           route: "info",
           icon: "mdiChat",

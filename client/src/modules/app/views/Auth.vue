@@ -2,7 +2,7 @@
   <v-app>
     <v-main>
       <Menu />
-      <v-container fluid style="min-height: 80vh">
+      <v-container fluid style="min-height: 85vh">
         <router-view></router-view>
       </v-container>
       <Footer />

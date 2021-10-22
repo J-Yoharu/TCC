@@ -2,9 +2,10 @@ import axiosInstance from "axios";
 
 export const axios = axiosInstance.create({
   params: {},
-  baseURL: "http://localhost:8000/api/",
+  baseURL: `${process.env.VUE_APP_ENDPOINT_HOST}:${process.env.VUE_APP_ENDPOINT_PORT}/api/`,
 });
-
+axios.defaults.withCredentials = true;
+axios.defaults.headers.common['Authorization'] = 'Bearer '+localStorage.token;
 export const axiosWeather = axiosInstance.create({
   baseURL: "https://api.openweathermap.org",
   params: {
@@ -13,10 +14,3 @@ export const axiosWeather = axiosInstance.create({
     units: "metric",
   },
 });
-
-// export default ({ baseURL = "https://localhost:8000", params = {} }) => {
-//   return axios.create({
-//     params,
-//     baseURL,
-//   });
-// };

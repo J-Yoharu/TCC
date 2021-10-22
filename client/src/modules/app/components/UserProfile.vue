@@ -10,7 +10,7 @@
             {{ user.initials }}
           </v-avatar>
         </v-list-item-icon>
-        <span class="d-flex white--text"> {{ user.name }} </span>
+        <span class="d-flex white--text"> {{ user.firstName }} {{user.lastName}} </span>
         <v-menu transition="scale-transition" offset-x>
           <template v-slot:activator="{ on }">
             <v-btn icon v-on="on">
@@ -37,18 +37,17 @@
 
 <script>
 import { mdiChevronDown } from "@mdi/js";
+import { mapGetters } from 'vuex';
 export default {
+  computed:{
+    ...mapGetters('login', ['user']),
+  },
   data() {
     return {
       icons: {
         mdiChevronDown
       },
-      user: {
-        name: "Jonathas Augusto",
-        initials: "JA",
-        photo:
-          "https://kanto.legiaodosherois.com.br/w760-h398-gnw-cfill-q80/wp-content/uploads/2020/05/legiao_D3F0ygTi4ofc.jpg.jpeg"
-      }
+     
     };
   }
 };

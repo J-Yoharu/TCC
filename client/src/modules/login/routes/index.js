@@ -9,4 +9,14 @@ export default [
       requiresAuth: false,
     },
   },
+  {
+    path: "/cadastro",
+    name: "cadastro",
+    component: () => import(/*webpackChunckName: "home"*/ "../views/Cadastro"),
+    meta: {
+      title: "Cadastro",
+      layout: "app",
+      requiresAuth: false,
+    },
+  },
 ];

@@ -101,11 +101,11 @@ export default {
           icon: "mdiBookOpenPageVariant",
           name: "Feed"
         },
-        // {
-        //   route: "chat",
-        //   icon: "mdiChat",
-        //   name: "Chat"
-        // },
+        {
+          route: "chat",
+          icon: "mdiChat",
+          name: "Chat"
+        },
         {
           route: "info",
           icon: "mdiChat",

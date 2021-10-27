@@ -1,19 +1,5 @@
 <template>
   <div>
-    <v-toolbar class="elevation-0" v-if="!$vuetify.breakpoint.mdAndUp">
-      <v-row>
-        <v-col cols="12" class="d-flex">
-          <v-app-bar-nav-icon
-            class="hidden-md-and-up"
-            @click.stop="drawer = !drawer"
-          >
-          </v-app-bar-nav-icon>
-          <v-spacer></v-spacer>
-          <UserProfile />
-        </v-col>
-      </v-row>
-    </v-toolbar>
-
     <v-navigation-drawer
       v-model="drawer"
       app
@@ -67,7 +53,7 @@
       </template>
 
       <template v-slot:append>
-        <UserProfile v-if="$vuetify.breakpoint.mdAndUp" />
+        <UserProfile  />
       </template>
     </v-navigation-drawer>
   </div>

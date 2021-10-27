@@ -7,7 +7,7 @@
             <v-img
               contain
               :src="card.img"
-              max-width="450"
+              max-width="350"
               position="center center"
             ></v-img></div
         ></v-col>

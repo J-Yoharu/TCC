@@ -10,7 +10,7 @@
     <h3>
       Mas esse feito, nada mais é do que uma causa natural que por muita vez é
       agravada pelas ações humanas, mas há algumas medidas que podem minimizar
-      esse problema. Veja agora algumas maneiras de prevenir as enchentes e
+      esse problema. Veja agora algumas maneiras de prevenir as inundações e
       alagamentos:
     </h3>
 
@@ -46,12 +46,13 @@
       fazendo com que eles venham a transbordar. Essa poluição da água nos rios
       e esgotos, gerado pelo lixo descartado incorretamente contribui também
       para o fim do ecossistema que existe ali no lugar, pois, com excesso de
-      detrito no fundo, o rio fica mais raso, gerando enchentes.
+      detrito no fundo, o rio fica mais raso, gerando inundações.
     </p>
 
     <p>
       Assim como as dicas citadas acima, nas grandes cidades existem algumas
-      obras que podem ser realizadas para prevenir enchentes e alagamentos como:
+      obras que podem ser realizadas para prevenir inundações e alagamentos
+      como:
     </p>
 
     <ul>

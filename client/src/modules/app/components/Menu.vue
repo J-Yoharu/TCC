@@ -17,8 +17,10 @@
               class="d-flex justify-center"
             >
               <div>
-                <v-img :src="images.floodBrand" class="ml-4" width="280">
-                </v-img>
+                <router-link to="/">
+                  <v-img :src="images.floodBrand" class="ml-4" width="280">
+                  </v-img>
+                </router-link>
                 <h4
                   class="d-flex justify-center pt-2"
                   style="font-weight: bold"

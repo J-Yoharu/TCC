@@ -7,7 +7,7 @@
       fixed
       left
       :permanent="$vuetify.breakpoint.mdAndUp"
-      color="#024798"
+      color="#191970"
     >
       <template v-slot:prepend>
         <v-list>

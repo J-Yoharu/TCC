@@ -5,7 +5,7 @@
         <v-card min-height="100%">
           <v-card-title>
             <p>
-              Nivel da <span style="color: rgb(65, 105, 225)">água</span> do rio
+              Nível da <span style="color: rgb(65, 105, 225)">água</span> do rio
               -
               <br />
               <span :class="`${statusWater.color}`">

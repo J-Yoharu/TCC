@@ -53,7 +53,7 @@
       </template>
 
       <template v-slot:append>
-        <UserProfile  />
+        <UserProfile />
       </template>
     </v-navigation-drawer>
   </div>
@@ -61,7 +61,13 @@
 
 <script>
 import floodBrand from "@/assets/flood-brand.png";
-import { mdiAccount, mdiHome, mdiBookOpenPageVariant, mdiChat } from "@mdi/js";
+import {
+  mdiAccount,
+  mdiHome,
+  mdiBookOpenPageVariant,
+  mdiChat,
+  mdiExclamation
+} from "@mdi/js";
 export default {
   data() {
     return {
@@ -69,7 +75,8 @@ export default {
         mdiAccount,
         mdiHome,
         mdiBookOpenPageVariant,
-        mdiChat
+        mdiChat,
+        mdiExclamation
       },
       images: {
         floodBrand
@@ -94,7 +101,7 @@ export default {
         },
         {
           route: "info",
-          icon: "mdiChat",
+          icon: "mdiExclamation",
           name: "Informações"
         }
       ]

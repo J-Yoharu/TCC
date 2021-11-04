@@ -39,7 +39,12 @@
           </v-col>
           <v-col cols="12">
             <v-card height="100%">
-              <v-card-title> Último estado de alerta </v-card-title>
+              <v-card-title>
+                <p>
+                  Último estado de
+                  <span class="tw-text-red-700"> emergência</span>
+                </p>
+              </v-card-title>
               <v-card-text class="text-center pb-0">
                 <div style="font-size: 22px">
                   {{

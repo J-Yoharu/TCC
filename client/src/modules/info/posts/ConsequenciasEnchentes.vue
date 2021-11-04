@@ -1,6 +1,6 @@
 <template>
   <div>
-    <strong>As consequências das enchentes e inundações</strong>
+    <strong>As consequências das inundações</strong>
     <p>
       são drásticas na maioria dos casos. Além do grande número de mortes como
       os já citados, elas ocasionam elevada destruição do solo e da área urbana,

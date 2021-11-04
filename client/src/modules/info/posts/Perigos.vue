@@ -1,7 +1,7 @@
 <template>
   <div>
     <h1>
-      As águas das enchentes são consideradas potencialmente poluídas, pois
+      As águas das inundações são consideradas potencialmente poluídas, pois
       entram em contato direto com esgoto, lixo, produtos químicos e uma série
       de outras impurezas, desta forma podendo transmitir doenças como:
     </h1>
@@ -33,7 +33,7 @@
 
     <p>
       <strong>
-        Se o contato com as águas ou lama de enchentes for inevitável</strong
+        Se o contato com as águas ou lama de inundações for inevitável</strong
       >, devem ser tomados os seguintes cuidados:
     </p>
 
@@ -44,7 +44,7 @@
     </p>
     <p>
       <strong>
-        Crianças não devem nadar ou brincar na água das enchentes.</strong
+        Crianças não devem nadar ou brincar na água das inundações.</strong
       >
       Além das doenças transmitidas pela água existem os riscos de acidentes
       graves como afogamentos, provocados pela rapidez do deslocamento da água,
@@ -63,7 +63,7 @@
       adequado;
     </p>
     <p>
-      <strong> Em épocas de enchentes</strong>, os sistemas de abastecimento de
+      <strong> Em épocas de inundações</strong>, os sistemas de abastecimento de
       água normalmente sofrem algum tipo de dano, seja na captação, tratamento
       ou rede de distribuição. Nesse caso, deve ser garantido que a população
       tenha acesso a água dentro dos padrões de potabilidade, observando a
@@ -83,7 +83,7 @@
       contato.
     </p>
     <p>
-      <strong>Animais Venenosos ou Peçonhentos</strong> - Com as enchentes
+      <strong>Animais Venenosos ou Peçonhentos</strong> - Com as inundações
       muitos animais saem de seus habitats naturais em busca de abrigo nas
       residências atingidas. Podem ser encontrados em frestas, sob móveis ou
       dentro deles, assim como em roupas e calçados. Nesses casos, as

@@ -37,7 +37,7 @@ export default {
     CardInfo: () => import("../components/CardInfo.vue"),
     EvitarEnchentes: () => import("../posts/EvitarEnchentes.vue"),
     perigos: () => import("../posts/Perigos.vue"),
-    consequencias: () => import("../posts/ConsequenciasEnchentes.vue")
+    consequencias: () => import("../posts/ConsequenciasEnchentes.vue"),
   },
   data() {
     return {
@@ -48,48 +48,48 @@ export default {
           description: `<strong style='font-size: 20px'>190</strong> <br/>  A população conta com dois telefones para o atendimento de ocorrências
           policiais, o <a href="tel:190"><strong>190</strong></a
           >, da Polícia Militar, e o <a href="tel:181"><strong>181</strong></a
-          >, da Polícia Civil.`
+          >, da Polícia Civil.`,
         },
         {
           title: "Telefone do Bombeiro",
           img: fire,
           description: `<strong style='font-size: 20px'>193</strong> <br/> O telefone <a href="tel:193"><strong>193</strong></a> é o número do
           Corpo de Bombeiros para emergências, disponibilizado de forma gratuita
-          em todo território nacional.`
+          em todo território nacional.`,
         },
         {
           title: "Telefone do Samu",
           img: samu,
           description: `<strong style='font-size: 20px'>192</strong> <br/> O <a href="tel:192">192</a> é um serviço de atendimento pré-hospitalar
           de urgência e emergência da Prefeitura de São Paulo. Você pode acionar
-          o serviço através de telefones sem utilizar fichas ou cartão.`
-        }
+          o serviço através de telefones sem utilizar fichas ou cartão.`,
+        },
       ],
       posts: [
         {
-          title: "Como Evitar as enchentes?",
-          component: "EvitarEnchentes"
+          title: "Como Evitar as inundações?",
+          component: "EvitarEnchentes",
         },
         {
-          title: "Quais perigos as águas das enchentes podem causar?",
-          component: "perigos"
+          title: "Quais perigos as águas das inundações podem causar?",
+          component: "perigos",
         },
         {
-          title: "Quais as consequências das enchente? ",
-          component: "consequencias"
-        }
+          title: "Quais as consequências das inundações? ",
+          component: "consequencias",
+        },
       ],
 
       name: "Thiago",
-      names: ["<p style='color: blue'>Michael</p>", "Thiago", "Jonathas"]
+      names: ["<p style='color: blue'>Michael</p>", "Thiago", "Jonathas"],
     };
   },
   methods: {
     teste() {
       console.log("michael e o cara!");
       this.name = "Michael";
-    }
-  }
+    },
+  },
 };
 </script>
 

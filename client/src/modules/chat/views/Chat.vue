@@ -144,7 +144,7 @@ export default {
           online: false,
           avatar:
             "https://kanto.legiaodosherois.com.br/w760-h398-gnw-cfill-q80/wp-content/uploads/2020/06/legiao_1dUgHsj4Oy_Z.jpg.jpeg",
-          lastMessage: "Porra, tá ae?"
+          lastMessage: "Buenos dias, tá ae?"
         },
         {
           name: "Michael Medina",
